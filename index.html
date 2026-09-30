@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+    /* 让网页版在任何位置都能打开（VS Code Live Server、子文件夹、直接双击 index.html） */
+    (function () {
+      if (location.protocol === 'file:') {
+        document.addEventListener('DOMContentLoaded', function () {
+          document.body.innerHTML =
+            '<div style="font-family:sans-serif;max-width:520px;margin:60px auto;padding:0 20px;line-height:1.8;overflow:auto;height:100%">' +
+            '<h2>请不要直接双击打开 index.html</h2>' +
+            '<p>浏览器不允许这样运行 App。请用下面任意一种方式：</p>' +
+            '<ol><li>在这个文件夹打开终端，运行 <code>python run.py</code></li>' +
+            '<li>或在 VS Code 里右键 index.html →「Open with Live Server」</li></ol></div>';
+        });
+        return;
+      }
+      // 地址是 App 自己的页面（/phrases、/quiz/meaning…）：网站根目录就是 App 所在位置，保留地址
+      var routes = /^\/(learn|levels|practice|pronounce|review|mistakes|search|quiz|compounds|sentences|topic|cards|settings|word|shadow|dialogues|dialogue|course|level|videos|video|stats)(\/|$)/;
+      var atRoute = routes.test(location.pathname);
+      var dir = atRoute ? location.origin + '/' : location.href.replace(/[#?].*$/, '').replace(/[^/]*$/, '');
+      var base = document.createElement('base');
+      base.href = dir;
+      document.head.appendChild(base);
+      // 放在子文件夹里打开时，从首页开始
+      if (!atRoute) try { history.replaceState(null, '', '/'); } catch (e) {}
+      document.addEventListener('DOMContentLoaded', function () {
+        var js = document.createElement('script');
+        js.src = dir + '_expo/static/js/web/entry-b9ae94e47a31330f5f241c80fec53d29.js';
+        document.body.appendChild(js);
+      });
+    })();
+  </script>
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>越南语学堂</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="icon" href="./favicon.ico"/>  <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="越南语学堂" />
+    <meta name="theme-color" content="#0F9D6B" />
+  </head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  
+</body>
+</html>
